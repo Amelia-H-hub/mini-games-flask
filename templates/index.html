@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mini game app</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+  </head>
+  <body>
+    <div>
+      <p class="title">Welcome to Amelia's mini game playground!</p>
+      <p class="paragragh">What would you like to play today?</p>
+      {% for name in buttons %}
+        <button onclick='location.href="/{{ name | lower | replace(" ", "") }}"' class="custom-btn">{{ name }}</button>
+      {% endfor %}
+    </div>
+  </body>
+</html>

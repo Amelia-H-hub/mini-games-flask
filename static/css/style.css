@@ -1,0 +1,108 @@
+@charset "UTF-8";
+html, body {
+  height: 100vh;
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(45deg, #7373B9, #ffffff);
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+.title {
+  font-size: 48px;
+  color: #333;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.paragragh {
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.custom-btn {
+  background-color: #5C6BC0; /* 藍紫色 */
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.custom-btn:hover {
+  background-color: #3F51B5;
+  transform: scale(1.05);
+}
+
+.custom-select {
+  padding: 10px 16px;
+  border: 2px solid #5C6BC0;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: white;
+  color: #333;
+  outline: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%235C6BC0' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  padding-right: 36px; /* 留空間給箭頭 */
+}
+
+.custom-select:focus {
+  border-color: #3F51B5;
+  box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.2);
+}
+
+.hidden {
+  display: none;
+}
+
+.guessTimes {
+  width: 100%;
+  font-size: 32px;
+}
+
+.question {
+  width: 100%;
+  font-size: 84px;
+  font-weight: bold;
+  padding: 30px 0px;
+  color: #2C3E50;
+}
+
+.letters {
+  width: 100%;
+  font-size: 48px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.guessArea {
+  padding: 20px 0px;
+  font-size: 36px;
+}
+
+.guessMsg {
+  width: 100%;
+  font-size: 24px;
+  white-space: pre-line;
+  padding: 20px 0px;
+}
+
+h1 {
+  color: #333;
+}
+
+/*# sourceMappingURL=style.css.map */

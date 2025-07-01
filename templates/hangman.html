@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hangman Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+  </head>
+  <body>
+    <form id="levelChoose">
+      <p class="title">Welcome to Hangman Game!</p>
+      <p class="paragragh">Are you ready to challenge yourself?</p>
+
+      <div style="padding-top: 100px;">
+        <label for="level" class="paragragh">Choose the level of game you would like to play: </label>
+        <select id="level" name="level" class="custom-select">
+          {% for level, value in difficulties.items() %}
+            <option value="{{ value }}">{{ level | capitalize }}</option>
+          {% endfor %}
+        </select>
+        <button type="button" onclick="startGame()" class="custom-btn"> Start! </button>
+      </div>      
+    </form>
+
+    <form id="guess" class="hidden">
+      <div class="guessTimes">
+        Wrong gusses left: <span id="guessTimes">0</span>
+      </div>
+      <div id="question" class="question">
+      </div>
+      <div id="letters" class="letters"></div>
+      <!-- <div class="guessArea">
+        <div>
+          <label for="guessLetter">Guess a letter:</label>
+          <input type="text" id="guessLetter" name="guessLetter">
+        </div>
+        <button type="button" onclick="guess()">Guess!</button>
+      </div> -->
+      <div>
+        <div id="guessMsg" class="guessMsg"></div>
+      </div>
+      <div id="playAgain" class="hidden">
+        <button onclick="playAgain()" class="custom-btn">Play Again</button>
+      </div>
+    </form>
+
+    <script>
+      let guessTimes = 0;
+
+      function startGame() {
+        const levelValue = document.getElementById('level').value;
+        console.log('Choose level: ', levelValue);
+        console.log('Start Game');
+
+        fetch('/hangman/start', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ level: levelValue })
+        })
+        .then(response => response.json())
+        .then(data => {
+          guessTimes = data.guessTimes;
+          // const question = data.question.join(' ');
+
+          data.question.forEach(char => {
+            const span = document.createElement('span');
+            span.textContent = char === " " ? "\u00A0" : char;
+            span.style.display = "inline-block";
+            span.style.width = "96px";
+            span.style.textAlign = "center";
+            span.style.fontFamily = "monospace";
+            document.getElementById('question').appendChild(span);
+          })
+
+          const letters = data.letters.split('');
+
+          for (let i = 0; i < letters.length; i += 7) {
+            const group = letters.slice(i, i + 7);
+            const p = document.createElement('p');
+
+            group.forEach(letter => {
+              const span = document.createElement('span');
+              span.textContent = letter;
+              span.style.margin = "5px";
+              span.style.cursor = "pointer";
+
+              span.addEventListener("click", () => guess(letter));
+
+              p.appendChild(span);
+            });
+
+            document.getElementById('letters').appendChild(p);
+          };
+
+          document.getElementById('guessTimes').textContent = guessTimes;
+          // document.getElementById('question').textContent = question;
+          console.log('response======', data);
+          document.getElementById('levelChoose').classList.toggle("hidden");
+          document.getElementById('guess').classList.toggle("hidden");
+        })
+      };
+
+      function guess(guessValue) {
+        // const guessValue = document.getElementById('guessLetter').value;
+        if (guessValue.length === 0) {
+          console.log('Please enter one character.');
+        } else if (!/^[a-zA-Z]+$/.test(guessValue)) {
+          console.log('Input includes not only alphabets.');
+        } else if (guessValue.length > 1) {
+          console.log('Only can enter one character.');
+        } else {
+          fetch('/hangman/guess', {
+            method: 'POST',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify({ letter: guessValue })
+          })
+          .then(response => response.json())
+          .then(data => {
+            const question = data.question.join(' ');
+
+            document.getElementById('letters').innerHTML = "";
+            const letters = data.letters.split('');
+
+            for (let i = 0; i < letters.length; i += 7) {
+              const group = letters.slice(i, i + 7);
+              const p = document.createElement('p');
+
+              group.forEach(letter => {
+                const span = document.createElement('span');
+                span.textContent = letter;
+                span.style.margin = "5px";
+                span.style.cursor = "pointer";
+
+                span.addEventListener("click", () => guess(letter));
+
+                p.appendChild(span);
+              })
+
+              document.getElementById('letters').appendChild(p);
+            };
+
+            document.getElementById('question').textContent = question;
+            document.getElementById('guessMsg').textContent = data.message;
+            document.getElementById('guessTimes').textContent = data.guessTimes;
+            if (data.status) {
+              document.getElementById('letters').classList.toggle("hidden");
+              document.getElementById('playAgain').classList.toggle("hidden");
+            }
+            console.log('data========', data)
+          })
+        }
+      }
+
+      function playAgain() {
+        document.getElementById('levelChoose').classList.toggle("hidden");
+        document.getElementById('guess').classList.toggle("hidden");
+        document.getElementById('playAgain').classList.toggle("hidden");
+      }
+    </script>
+  </body>
+</html>
