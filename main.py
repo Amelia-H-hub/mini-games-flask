@@ -41,6 +41,10 @@ def guess():
 
     return jsonify(guess_result)
 
+@app.route('/guessnumber')
+def guess_number():
+    return render_template("guessNumber.html")
+
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 10000))
     app.run(host='0.0.0.0', port=port)
