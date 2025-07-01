@@ -41,5 +41,6 @@ def guess():
     return jsonify(guess_result)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 10000))
+    app.run(host='0.0.0.0', port=port)
     # debug=True: 程式碼改了會自動重新啟動（方便開發）、發生錯誤時會顯示詳細錯誤畫面（開發時超有用）
