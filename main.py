@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from hangman import Hangman
+import os
 
 # Tell Flask: 嘿 Flask，這是我網站的主程式，幫我建立一個應用程式物件叫 app，以後我就會用它來做網站啦！
 app = Flask(__name__)
