@@ -114,8 +114,9 @@
           })
           .then(response => response.json())
           .then(data => {
-            // const question = data.question.join(' ');
-
+            // clear question div
+            document.getElementById('question').replaceChildren();
+            // append words in question div
             data.question.forEach(char => {
               const span = document.createElement('span');
               span.textContent = char === " " ? "\u00A0" : char;
