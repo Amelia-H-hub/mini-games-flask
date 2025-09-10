@@ -1,11 +1,29 @@
-# 我的 Flask 小遊戲 🎮
+# My Flask Mini Games Website 🎮
 
-這是一個使用 Python Flask 製作的猜單字遊戲。
-- 使用者可以選擇不同難度
-- 前端使用 HTML + CSS + JavaScript
-- 後端使用 Flask 處理邏輯
+A mini games website built with Python Flask.
+- Frontend: HTML + SCSS + JavaScript
+- Backend: Flask (Python)
+- Deployment: [Render](https://mini-games-flask.onrender.com)
 
-## 啟動方式
+
+Currently availabel mini games:
+- Hangman
+- Guessing the Number (in progress...)
+
+
+Also, it's deployed by Render.
+
+https://mini-games-flask.onrender.com
+
+
+## Hangman
+- Users can select different difficulty levels to challenge themselves.
+
+## 🚀 How to Run Locally
 
 ```bash
+# Install dependencies (recommend using venv)
+pip instal -r requirements.txt
+
+# Run the app
 python main.py
